@@ -36,8 +36,10 @@ const NavBar = () => {
 
   React.useEffect(() => {
     const date = moment(new Date());
-    setInterval(() => setTime(date.format(format), 3000));
-    return () => clearInterval();
+    const interval = setInterval(() => {
+      setTime(date.format(format));
+    }, 15000);
+    return () => clearInterval(interval);
   });
 
   return (
