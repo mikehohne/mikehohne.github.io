@@ -13,12 +13,6 @@ const client = TelegramClient.connect(
   '804236995:AAEoPM8BzKP6UKvVj6hnQHBE8twXf2dRFTE'
 );
 
-// function sendMessage() {
-//   client
-//     .sendMessage(392535675, 'Hello World')
-//     .catch(error => console.log(error));
-// }
-
 function App() {
   return (
     <>

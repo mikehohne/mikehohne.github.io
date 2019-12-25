@@ -38,7 +38,7 @@ const NavBar = () => {
     const date = moment(new Date());
     setInterval(() => setTime(date.format(format), 3000));
     return () => clearInterval();
-  }, []);
+  });
 
   return (
     <>

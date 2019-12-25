@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import * as EmailValidator from 'email-validator';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -22,19 +23,28 @@ const useStyles = makeStyles(theme => ({
 
 const Contact = props => {
   const form = React.useRef(null);
-  const [formValues, setForm] = React.useState({
-    email: '',
-    message: ''
-  });
-
+  const initialState = {
+    controls: {
+      email: {
+        value: '',
+        valid: false
+      },
+      message: {
+        value: '',
+        valid: false
+      }
+    }
+  };
+  const [formValues, setForm] = React.useState(initialState);
   const [formValid, setFormValid] = React.useState(false);
+  const [error, setError] = React.useState(null);
   const classes = useStyles();
 
   React.useEffect(() => {
     if (form) {
       if (
-        form.current.email.value.length > 0 &&
-        form.current.message.value.length > 0
+        formValues.controls.message.valid &&
+        formValues.controls.email.valid
       ) {
         setFormValid(true);
       } else {
@@ -45,13 +55,44 @@ const Contact = props => {
 
   function handleChange(e) {
     const { value, name } = e.target;
-    setForm({ ...formValues, [name]: value });
+    setForm({
+      ...formValues,
+      controls: {
+        ...formValues.controls,
+        [name]: {
+          value: value,
+          valid: validate(name, value)
+        }
+      }
+    });
+  }
+
+  function handleBlur() {
+    if (formValues.controls.email.valid) {
+      return setError(null);
+    }
+    setError('Email is Invalid');
+  }
+
+  function validate(name, value) {
+    switch (name) {
+      case 'email':
+        return EmailValidator.validate(value);
+      case 'message':
+        return value.length > 0;
+      default:
+        return false;
+    }
   }
 
   function sendMessage() {
     props.client
-      .sendMessage(392535675, `${formValues.email} ${formValues.message}`)
-      .then(res => setForm({ email: '', message: '' }));
+      .sendMessage(
+        392535675,
+        `<b>${formValues.controls.email.value}</b> ${formValues.controls.message.value}`,
+        { parse_mode: 'HTML' }
+      )
+      .then(res => setForm(initialState));
   }
 
   function handleSubmit(e) {
@@ -67,18 +108,20 @@ const Contact = props => {
             className={classes.inputContainer}
             name='email'
             autoComplete='off'
-            value={formValues.email}
+            value={formValues.controls.email.value}
+            onBlur={handleBlur}
             label='Email'
             required
             variant='outlined'
             onChange={handleChange}
           />
+          <span>{error}</span>
         </div>
         <div className={classes.root}>
           <TextField
             className={classes.inputContainer}
             name='message'
-            value={formValues.message}
+            value={formValues.controls.message.value}
             label='Message'
             required
             variant='outlined'
