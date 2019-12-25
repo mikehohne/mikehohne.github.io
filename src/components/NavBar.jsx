@@ -4,16 +4,16 @@ import {
   Toolbar,
   Button,
   makeStyles,
-  Typography
+  Typography,
+  useMediaQuery
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
   root: {},
   toolBar: {
     display: 'flex'
-    // justifyContent: 'flex-end',
-    // alignItems: 'center'
   },
   link: {
     color: 'white',
@@ -22,18 +22,32 @@ const useStyles = makeStyles(theme => ({
   title: {
     alignSelf: 'initial',
     flexGrow: 1
+  },
+  time: {
+    fontSize: '12px'
   }
 }));
 
 const NavBar = () => {
   const classes = useStyles();
+  const matches = useMediaQuery('(max-width:768px)');
+  console.log(matches);
+  const format = 'hh:mm a';
+  const [time, setTime] = React.useState(moment(new Date()).format(format));
+
+  React.useEffect(() => {
+    const date = moment(new Date());
+    setInterval(() => setTime(date.format(format), 3000));
+    return () => clearInterval();
+  }, []);
+
   return (
     <>
       <AppBar className={classes.root} position='static'>
         <Toolbar className={classes.toolBar}>
           <Typography className={classes.title} variant='h6'>
             <Link className={classes.link} to='/'>
-              Mike Hohne
+              {matches ? 'MH' : 'Mike Hohne'}
             </Link>
           </Typography>
           <Button>
@@ -46,6 +60,7 @@ const NavBar = () => {
               Contact
             </Link>
           </Button>
+          <span className={classes.time}>{time}</span>
         </Toolbar>
       </AppBar>
     </>

@@ -6,13 +6,13 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-around',
-    flexWrap: 'wrap',
-    padding: '20px'
+    justifyContent: 'center',
+    flexWrap: 'wrap'
   },
   paper: {
-    maxHeight: '200px',
-    minWidth: '200px'
+    minHeight: '300px',
+    minWidth: '300px',
+    margin: '10px'
   },
   listItem: {
     display: 'flex',
@@ -21,11 +21,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const projects = [
-  { title: 'First', id: 'first' },
-  { title: 'Second', id: 'second' },
-  { title: 'Third', id: 'third' },
-  { title: 'Fourth', id: 'fourth' },
-  { title: 'Fifth', id: 'fifth' }
+  { title: 'First', id: 'first', techs: ['javascript', 'nodejs'] },
+  { title: 'Second', id: 'second', techs: ['react', 'javascript'] },
+  { title: 'Third', id: 'third', techs: ['angular', 'javascript'] },
+  { title: 'Fourth', id: 'fourth', techs: ['react', 'javascript'] },
+  { title: 'Fifth', id: 'fifth', techs: ['c#'] }
 ];
 
 const PortfolioList = props => {
