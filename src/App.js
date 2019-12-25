@@ -9,9 +9,7 @@ import PortfolioPageDetail from './pages/Portfolio/PortfolioPageDetail';
 import { TelegramClient } from 'messaging-api-telegram';
 import Contact from './pages/Contact/Contact';
 
-const client = TelegramClient.connect(
-  '804236995:AAEoPM8BzKP6UKvVj6hnQHBE8twXf2dRFTE'
-);
+const client = TelegramClient.connect(process.env.REACT_APP_TELEGRAM_API_KEY);
 
 function App() {
   return (
