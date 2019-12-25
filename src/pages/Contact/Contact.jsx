@@ -3,8 +3,14 @@ import { TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
+  form: {
+    minWidth: '350px'
+  },
   root: {
     marginTop: '10px'
+  },
+  inputContainer: {
+    width: '100%'
   },
   buttonContainer: {
     textAlign: '100%'
@@ -55,9 +61,10 @@ const Contact = props => {
 
   return (
     <div>
-      <form ref={form}>
+      <form className={classes.form} ref={form}>
         <div className={classes.root}>
           <TextField
+            className={classes.inputContainer}
             name='email'
             autoComplete='off'
             value={formValues.email}
@@ -69,6 +76,7 @@ const Contact = props => {
         </div>
         <div className={classes.root}>
           <TextField
+            className={classes.inputContainer}
             name='message'
             value={formValues.message}
             label='Message'
