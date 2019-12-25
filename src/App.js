@@ -14,7 +14,7 @@ const client = TelegramClient.connect(process.env.REACT_APP_TELEGRAM_API_KEY);
 function App() {
   return (
     <>
-      <Router>
+      <Router basename={`${process.env.PUBLIC_URL}/`}>
         <NavBar />
         <MainContainer>
           <Switch>

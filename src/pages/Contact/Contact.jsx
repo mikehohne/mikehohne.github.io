@@ -5,7 +5,7 @@ import * as EmailValidator from 'email-validator';
 
 const useStyles = makeStyles(theme => ({
   form: {
-    minWidth: '350px'
+    minWidth: '300px'
   },
   root: {
     marginTop: '10px'
