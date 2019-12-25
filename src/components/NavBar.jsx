@@ -31,7 +31,6 @@ const useStyles = makeStyles(theme => ({
 const NavBar = () => {
   const classes = useStyles();
   const matches = useMediaQuery('(max-width:768px)');
-  console.log(matches);
   const format = 'hh:mm a';
   const [time, setTime] = React.useState(moment(new Date()).format(format));
 
@@ -56,7 +55,7 @@ const NavBar = () => {
             </Link>
           </Button>
           <Button>
-            <Link className={classes.link} to='/test'>
+            <Link className={classes.link} to='/contact'>
               Contact
             </Link>
           </Button>
