@@ -3,9 +3,9 @@ import { Container, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
     justifyContent: 'center',
-    marginTop: theme.spacing(5)
+    marginTop: theme.spacing(5),
+    borderRadius: '4px'
   }
 }));
 

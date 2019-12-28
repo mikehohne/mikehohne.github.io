@@ -1,6 +1,5 @@
 import React from 'react';
-import { TextField, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { TextField, Button, makeStyles } from '@material-ui/core';
 import * as EmailValidator from 'email-validator';
 
 const useStyles = makeStyles(theme => ({
@@ -8,7 +7,7 @@ const useStyles = makeStyles(theme => ({
     minWidth: '300px'
   },
   root: {
-    marginTop: '10px'
+    marginTop: theme.spacing(2)
   },
   inputContainer: {
     width: '100%'
@@ -17,11 +16,12 @@ const useStyles = makeStyles(theme => ({
     textAlign: '100%'
   },
   button: {
-    width: '100%'
+    width: '100%',
+    height: '75px'
   }
 }));
 
-const Contact = props => {
+export function Contact({ client }) {
   const form = React.useRef(null);
   const initialState = {
     controls: {
@@ -86,7 +86,7 @@ const Contact = props => {
   }
 
   function sendMessage() {
-    props.client
+    client
       .sendMessage(
         392535675,
         `<b>${formValues.controls.email.value}</b> ${formValues.controls.message.value}`,
@@ -101,49 +101,50 @@ const Contact = props => {
   }
 
   return (
-    <div>
-      <form className={classes.form} ref={form}>
-        <div className={classes.root}>
-          <TextField
-            className={classes.inputContainer}
-            name='email'
-            autoComplete='off'
-            value={formValues.controls.email.value}
-            onBlur={handleBlur}
-            label='Email'
-            required
-            variant='outlined'
-            onChange={handleChange}
-          />
-          <span>{error}</span>
-        </div>
-        <div className={classes.root}>
-          <TextField
-            className={classes.inputContainer}
-            name='message'
-            value={formValues.controls.message.value}
-            label='Message'
-            required
-            variant='outlined'
-            rows='8'
-            multiline
-            onChange={handleChange}
-          />
-        </div>
-        <div className={classes.root}>
-          <Button
-            variant='contained'
-            color='primary'
-            className={classes.button}
-            disabled={!formValid ? true : undefined}
-            onClick={handleSubmit}
-          >
-            Send Message
-          </Button>
-        </div>
-      </form>
-    </div>
+    <React.Fragment>
+      <h3 style={{ textAlign: 'center' }}>Contact Me</h3>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <form className={classes.form} ref={form}>
+          <div className={classes.root}>
+            <TextField
+              className={classes.inputContainer}
+              name='email'
+              autoComplete='off'
+              value={formValues.controls.email.value}
+              onBlur={handleBlur}
+              label='Email'
+              required
+              variant='outlined'
+              onChange={handleChange}
+            />
+            <span>{error}</span>
+          </div>
+          <div className={classes.root}>
+            <TextField
+              className={classes.inputContainer}
+              name='message'
+              value={formValues.controls.message.value}
+              label='Message'
+              required
+              variant='outlined'
+              rows='8'
+              multiline
+              onChange={handleChange}
+            />
+          </div>
+          <div className={classes.root}>
+            <Button
+              variant='contained'
+              color='primary'
+              className={classes.button}
+              disabled={!formValid ? true : undefined}
+              onClick={handleSubmit}
+            >
+              Send Message
+            </Button>
+          </div>
+        </form>
+      </div>
+    </React.Fragment>
   );
-};
-
-export default Contact;
+}

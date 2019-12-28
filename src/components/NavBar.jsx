@@ -11,7 +11,9 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    backgroundColor: '#101010'
+  },
   toolBar: {
     display: 'flex'
   },
@@ -36,9 +38,10 @@ const NavBar = () => {
 
   React.useEffect(() => {
     const date = moment(new Date());
+    console.log(date);
     const interval = setInterval(() => {
       setTime(date.format(format));
-    }, 15000);
+    }, 2000);
     return () => clearInterval(interval);
   });
 
